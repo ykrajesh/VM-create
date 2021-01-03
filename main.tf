@@ -70,17 +70,18 @@ resource "azurerm_windows_virtual_machine" "vm" {
     version   = "latest"
   }
 }
-
+# Create the disk in azure cloud 
 resource "azurerm_managed_disk" "D_drive" {
   name                 = "${var.Virtual_Machine_name[1]}-D-Drive"
   location             = azurerm_resource_group.rg.location
   resource_group_name  = azurerm_resource_group.rg.name
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
-  disk_size_gb         = "50"
+  disk_size_gb         = "70"
 
 
 }
+#attached the disk in vm disk Management console 
 resource "azurerm_virtual_machine_data_disk_attachment" "add-disk" {
   managed_disk_id    = azurerm_managed_disk.D_drive.id
   virtual_machine_id = azurerm_windows_virtual_machine.vm.id
